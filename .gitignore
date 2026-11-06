@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.csv
+*.lock
+*.tmp
+runtime/
+config.local.json

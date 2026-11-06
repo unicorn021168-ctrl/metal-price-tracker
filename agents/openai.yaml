@@ -1,0 +1,4 @@
+interface:
+  display_name: "金属价格追踪"
+  short_description: "每日采集六种金属价格，核对 CSV 与金山文档七张表，防重复并验证结果"
+  default_prompt: "使用 $metal-price-tracker 采集今天的六种金属价格，同步金山文档并核对结果。"
