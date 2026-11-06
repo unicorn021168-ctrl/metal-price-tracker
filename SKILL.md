@@ -11,7 +11,28 @@ description: Use when 用户要求每日采集铜、镍、锌、锡、钴、碳�
 
 先读取本机 `kdocs/SKILL.md`，按其版本、认证、错误处理约束操作。只使用 `kdocs-cli`；不依赖旧 `mcp__kdocs__*`。凭据留在系统密钥链，不提交 Token、历史 CSV、云表内容或运行日志。
 
-本用户目标和现有路径见 [references/local-profile.md](references/local-profile.md)。其他用户必须配置自己的 file_id、Python 与 CSV 路径。不要因本技能而新建定时任务或修改现有调度。
+目标文档由每次调用指定，不绑定固定文档。Python 与 CSV 的可选本机路径见 [references/local-profile.md](references/local-profile.md)。不要因本技能而新建定时任务或修改现有调度。
+
+### 指定文档位置
+
+- 调用时可提供金山文档的完整分享链接或 `file_id`；当前调用的指定优先于同一任务中此前确认的目标。
+- 未在当前调用指定时，只可沿用当前任务中用户已明确确认的目标。不要从技能示例、旧聊天或本机路径配置推断默认文档；无已确认目标时，写入前询问用户。
+- 按 kdocs 的 `references/file-locating-guide.md` 解析、核对文档名称和类型，再获取工作表列表。链接和 file_id 选一种定位参数，不能混传。
+- 只提供文件名时先搜索；重名或定位不唯一时请用户选择。文件夹链接不是表格目标；需明确文件夹中的具体表格，不自行新建文档。
+- 新目标仍须符合七张工作表和列结构要求；先检查再写入，不因指定新目标自动新建工作表或改变结构。
+
+调用示例（替换尖括号中的内容）：
+
+```text
+使用 $metal-price-tracker 采集今天的金属价格，写入金山文档：<文档完整分享链接>。
+```
+
+```text
+使用 $metal-price-tracker，目标文档 file_id：<目标文档ID>。
+历史 CSV 保存到：<本地CSV绝对路径>。
+```
+
+下方 collect.py 的参数只控制本地采集文件；云文档目标由调用文字交给 agent，通过 kdocs 解析和操作，并非 collect.py 的命令行参数。
 
 1. 用具备 requirements.txt 依赖的 Python 运行：
 

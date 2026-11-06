@@ -2,6 +2,8 @@
 
 调用前读取当前 kdocs 的 `references/sheet/worksheet.md` 和 `references/sheet/data.md`；本说明是业务约束，接口参数以安装版本为准。Windows 中文参数使用 Python/Node 生成 UTF-8 无 BOM JSON，再 `--file` 传递。
 
+目标必须来自当前调用或当前任务中明确确认的文档，遵循 SKILL.md「指定文档位置」。先按 kdocs 定位指引将用户链接解析为已核实的 file_id，再用于下列读写；不得使用示例 ID 或历史固定目标。
+
 ## 读取与计划
 
 1. `kdocs-cli sheet get-sheets-info file_id=<id>` 获取名称、真实 sheetId、rowTo、colTo。不得写死 sheetId。
